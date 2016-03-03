@@ -6,6 +6,18 @@ import { addMessage, switchUsername } from '../actions/actions'
 import { LiveOneLineInputForm } from './presentation/liveOneLineInputForm'
 
 class MainApp extends React.Component {
+
+  componentDidMount() {
+    function reqListener () {
+      console.log(this.responseText);
+    }
+
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", reqListener);
+    oReq.open("GET", "api/channel");
+    oReq.send();
+  }
+
   render() {
     return (
       <div>
