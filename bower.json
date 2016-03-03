@@ -1,0 +1,22 @@
+{
+  "name": "gae-channels-sample",
+  "homepage": "https://github.com/misterwilliam/gae-channels-sample",
+  "authors": [
+    "William Chang <mr.williamchang@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "^0.14.7"
+  }
+}
