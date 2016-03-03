@@ -5,5 +5,5 @@ class Main(webapp2.RequestHandler):
         self.response.write('Yo')
 
 app = webapp2.WSGIApplication([
-    ('/', Main)
+    ('/', Main),
 ])

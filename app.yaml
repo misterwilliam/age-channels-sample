@@ -8,5 +8,7 @@ handlers:
   upload: index.html
 - url: /dist
   static_dir: dist/
+- url: /api/.*
+  script: api.app
 - url: /.*
   script: main.app
