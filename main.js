@@ -1,45 +1,18 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
-class Message extends React.Component {
-  render() {
-    return (
-      <div>
-        {this.props.author}: {this.props.message}
-      </div>
-    )
-  }
-}
+import { MainReducer } from './actions/reducers'
+import { App } from './uiComponents/components'
 
-class Input extends React.Component {
-
-  constructor(props) {
-      super(props);
-      this.state = {
-        value: ""
-      }
-  }
-
-  render() {
-    return (
-      <input type="text" value={this.state.value}
-             onChange={this.handleChange} />
-    )
-  }
-}
-
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Input/>
-        <Message author="author" message="yo" />
-      </div>
-    )
-  }
-}
+let store = createStore(MainReducer, {messages: [
+  {id: 0, message: "yo", author: "me"}
+]});
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('wrapper')
 );
