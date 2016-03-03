@@ -6,10 +6,13 @@ import { addMessage, switchUsername } from '../actions/actions'
 
 class MainApp extends React.Component {
   render() {
+    console.log(this.props)
     return (
       <div>
         <h1>Username</h1>
-        <OneLineInputForm onSubmit={this.props.handleUsernameChange.bind(this)} />
+        <OneLineInputForm
+            onSubmit={this.props.handleUsernameChange.bind(this)}
+            initialValue={this.props.username}/>
         <h1>Messages</h1>
         <OneLineInputForm onSubmit={this.props.handleSubmit.bind(this)} />
         <VisibleMessageList />
@@ -19,8 +22,12 @@ class MainApp extends React.Component {
 }
 
 const ConnectedMainApp = connect(
-  null,
-  (dispatch) => {
+  (state) => {
+    return {
+      username: state.username
+    }
+  },
+  (dispatch, props) => {
     return {
       handleSubmit: (value) => {
         dispatch(addMessage(value, "not yet implemented"));

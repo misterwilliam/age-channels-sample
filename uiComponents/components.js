@@ -38,7 +38,7 @@ export class OneLineInputForm extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-        value: ""
+        value: this.props.initialValue != null ? this.props.initialValue : ""
       }
   }
 
