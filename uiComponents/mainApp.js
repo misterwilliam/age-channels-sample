@@ -3,14 +3,15 @@ import { connect } from 'react-redux'
 
 import { OneLineInputForm, VisibleMessageList} from './components'
 import { addMessage, switchUsername } from '../actions/actions'
+import { LiveOneLineInputForm } from './presentation/liveOneLineInputForm'
 
 class MainApp extends React.Component {
   render() {
     return (
       <div>
         <h1>Username</h1>
-        <OneLineInputForm
-            onSubmit={this.props.handleUsernameChange.bind(this)}
+        <LiveOneLineInputForm
+            onChange={this.props.handleUsernameChange.bind(this)}
             initialValue={this.props.username}/>
         <h1>Messages</h1>
         <OneLineInputForm onSubmit={
