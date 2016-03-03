@@ -1,3 +1,3 @@
 export const ADD_MESSAGE = 'ADD_MESSAGE';
-
 export const SWITCH_USERNAME = 'SWITCH_USERNAME';
+export const SET_CHANNEL_TOKEN = 'SET_CHANNEL_TOKEN';

@@ -2,23 +2,24 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { OneLineInputForm, VisibleMessageList} from './components'
-import { addMessage, switchUsername } from '../actions/actions'
+import { addMessage, switchUsername, setChannelToken } from '../actions/actions'
 import { LiveOneLineInputForm } from './presentation/liveOneLineInputForm'
 
 class MainApp extends React.Component {
 
   componentDidMount() {
-    function reqListener () {
-      console.log(this.responseText);
-    }
-
     var oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", reqListener);
+    oReq.addEventListener("load", (event) => {
+      if (this.props.handleChannelTokenUpdate != null) {
+        this.props.handleChannelTokenUpdate(event.target.responseText);
+      }
+    });
     oReq.open("GET", "api/channel");
     oReq.send();
   }
 
   render() {
+    console.log(this.props);
     return (
       <div>
         <h1>Username</h1>
@@ -38,7 +39,8 @@ class MainApp extends React.Component {
 const ConnectedMainApp = connect(
   (state) => {
     return {
-      username: state.username
+      username: state.username,
+      token: state.token
     }
   },
   (dispatch, props) => {
@@ -48,6 +50,9 @@ const ConnectedMainApp = connect(
       },
       handleUsernameChange: (value) => {
         dispatch(switchUsername(value));
+      },
+      handleChannelTokenUpdate: (token) => {
+        dispatch(setChannelToken(token));
       }
     }
   }
