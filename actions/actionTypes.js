@@ -1,1 +1,3 @@
 export const ADD_MESSAGE = 'ADD_MESSAGE';
+
+export const SWITCH_USERNAME = 'SWITCH_USERNAME';

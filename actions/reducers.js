@@ -1,5 +1,14 @@
 import { combineReducers } from 'redux'
-import { ADD_MESSAGE } from './actionTypes'
+import { ADD_MESSAGE, SWITCH_USERNAME } from './actionTypes'
+
+function usernameReducer(state = "anonymous", action) {
+  switch(action.type) {
+    case SWITCH_USERNAME:
+      return action.username;
+    default:
+      return state;
+  }
+}
 
 let nextMessageId = 0;
 function messagesReducer(state = [], action) {
@@ -17,5 +26,6 @@ function messagesReducer(state = [], action) {
 }
 
 export default combineReducers({
-  messages: messagesReducer
+  messages: messagesReducer,
+  username: usernameReducer,
 })
