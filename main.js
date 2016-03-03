@@ -6,9 +6,7 @@ import { Provider } from 'react-redux'
 import { MainReducer } from './actions/reducers'
 import MainApp from './uiComponents/mainApp'
 
-let store = createStore(MainReducer, {messages: [
-  {id: 0, message: "yo", author: "me"}
-]});
+let store = createStore(MainReducer);
 
 ReactDOM.render(
   <Provider store={store}>
