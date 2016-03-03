@@ -56,11 +56,15 @@ export class OneLineInputForm extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
+
     if (this.props.onSubmit != null) {
-      this.props.onSubmit(this.state.value);
+      this.props.onSubmit({
+        message: this.state.value,
+        author: "not yet implemented"
+      });
     }
 
     this.setState({value: ""});
-    event.preventDefault();
   }
 }

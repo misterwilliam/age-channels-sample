@@ -9,7 +9,7 @@ export function MainReducer(state = initialState, action) {
     case ADD_MESSAGE:
       return Object.assign({}, state, {
         messages: [
-          ...state.todos,
+          ...state.messages,
           {
             message: action.message,
             author: action.author
