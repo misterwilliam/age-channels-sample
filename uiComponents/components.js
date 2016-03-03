@@ -33,7 +33,7 @@ const VisibleMessageList = connect(
   }
 )(MessageList)
 
-class Input extends React.Component {
+class OneLineInputForm extends React.Component {
 
   constructor(props) {
       super(props);
@@ -44,9 +44,24 @@ class Input extends React.Component {
 
   render() {
     return (
-      <input type="text" value={this.state.value}
-             onChange={this.handleChange} />
+      <form onSubmit={this.handleSubmit.bind(this)} >
+        <input type="text" value={this.state.value}
+               onChange={this.handleChange.bind(this)} />
+      </form>
     )
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    if (this.props.onSubmit != null) {
+      this.props.onSubmit(this.state.value);
+    }
+
+    this.setState({value: ""});
+    event.preventDefault();
   }
 }
 
@@ -54,7 +69,7 @@ export class App extends React.Component {
   render() {
     return (
       <div>
-        <Input/>
+        <OneLineInputForm />
         <VisibleMessageList />
       </div>
     )
