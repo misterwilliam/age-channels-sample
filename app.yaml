@@ -6,6 +6,8 @@ handlers:
 - url: /
   static_files: index.html
   upload: index.html
+- url: /dist
+  static_dir: dist/
 - url: /react.js
   static_files: bower_components/react/react.min.js
   upload: bower_components/react/react.min.js
