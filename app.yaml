@@ -8,6 +8,7 @@ handlers:
   upload: index.html
 - url: /dist
   static_dir: dist/
+# TODO: Secure this connection
 - url: /api/.*
   script: api.app
 - url: /.*
