@@ -6,5 +6,11 @@ handlers:
 - url: /
   static_files: index.html
   upload: index.html
+- url: /react.js
+  static_files: bower_components/react/react.min.js
+  upload: bower_components/react/react.min.js
+- url: /react-dom.js
+  static_files: bower_components/react/react-dom.min.js
+  upload: bower_components/react/react-dom.min.js
 - url: /.*
   script: main.app
