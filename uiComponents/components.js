@@ -25,7 +25,7 @@ class MessageList extends React.Component {
   }
 }
 
-const VisibleMessageList = connect(
+export const VisibleMessageList = connect(
   (state) => {
     return {
       messages: state.messages
@@ -33,7 +33,7 @@ const VisibleMessageList = connect(
   }
 )(MessageList)
 
-class OneLineInputForm extends React.Component {
+export class OneLineInputForm extends React.Component {
 
   constructor(props) {
       super(props);
@@ -62,16 +62,5 @@ class OneLineInputForm extends React.Component {
 
     this.setState({value: ""});
     event.preventDefault();
-  }
-}
-
-export class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <OneLineInputForm />
-        <VisibleMessageList />
-      </div>
-    )
   }
 }

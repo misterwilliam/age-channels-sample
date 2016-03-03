@@ -4,7 +4,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
 import { MainReducer } from './actions/reducers'
-import { App } from './uiComponents/components'
+import MainApp from './uiComponents/mainApp'
 
 let store = createStore(MainReducer, {messages: [
   {id: 0, message: "yo", author: "me"}
@@ -12,7 +12,7 @@ let store = createStore(MainReducer, {messages: [
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <MainApp />
   </Provider>,
   document.getElementById('wrapper')
 );
