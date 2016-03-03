@@ -16,7 +16,5 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "react": "^0.14.7"
-  }
+  "dependencies": {}
 }

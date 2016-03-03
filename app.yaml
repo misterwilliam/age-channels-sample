@@ -8,11 +8,5 @@ handlers:
   upload: index.html
 - url: /dist
   static_dir: dist/
-- url: /react.js
-  static_files: bower_components/react/react.min.js
-  upload: bower_components/react/react.min.js
-- url: /react-dom.js
-  static_files: bower_components/react/react-dom.min.js
-  upload: bower_components/react/react-dom.min.js
 - url: /.*
   script: main.app
