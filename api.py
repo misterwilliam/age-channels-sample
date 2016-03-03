@@ -10,6 +10,7 @@ class Channel(webapp2.RequestHandler):
             self.response.write({"token": ""})
             return
         token = channel.create_channel(user.user_id())
+        channel.send_message(user.user_id(), "hello")
         self.response.write({"token": token})
 
 app = webapp2.WSGIApplication([
