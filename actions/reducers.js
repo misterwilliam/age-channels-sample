@@ -31,9 +31,23 @@ function tokenReducer(state = "", action) {
       if (action.token != "") {
         const channel = new goog.appengine.Channel(action.token);
         const socket = channel.open();
-        socket.onmesssage = (message) => {
+        socket.onmessage = (message) => {
           console.log(message);
         }
+        socket.onopen = () => {
+          console.log("opened");
+        }
+        socket.onerror = () => {
+          console.log("socket error");
+        }
+        socket.onclose = () => {
+          console.log("close");
+        }
+
+        console.log("Send to api/message")
+        var oReq = new XMLHttpRequest();
+        oReq.open("GET", "api/message");
+        oReq.send();
       }
 
       return action.token;
