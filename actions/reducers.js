@@ -4,7 +4,7 @@ const initialState = {
   messages: []
 }
 
-export function MainReducer(state = initialState, action) {
+export default function MainReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_MESSAGE:
       return Object.assign({}, state, {
