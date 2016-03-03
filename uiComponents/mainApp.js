@@ -11,7 +11,8 @@ class MainApp extends React.Component {
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", (event) => {
       if (this.props.handleChannelTokenUpdate != null) {
-        this.props.handleChannelTokenUpdate(event.target.responseText);
+        const response = JSON.parse(event.target.responseText);
+        this.props.handleChannelTokenUpdate(response.token);
       }
     });
     oReq.open("GET", "api/channel");

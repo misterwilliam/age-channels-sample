@@ -28,6 +28,14 @@ function messagesReducer(state = [], action) {
 function tokenReducer(state = "", action) {
   switch (action.type) {
     case SET_CHANNEL_TOKEN:
+      if (action.token != "") {
+        const channel = new goog.appengine.Channel(action.token);
+        const socket = channel.open();
+        socket.onmesssage = (message) => {
+          console.log(message);
+        }
+      }
+
       return action.token;
     default:
       return state;
