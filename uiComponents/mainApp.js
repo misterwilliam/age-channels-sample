@@ -25,6 +25,7 @@ class MainApp extends React.Component {
     console.log(this.props);
     return (
       <div>
+        <a href="/logout">logout</a>
         <h1>Username</h1>
         <LiveOneLineInputForm
             onChange={this.props.handleUsernameChange.bind(this)}
