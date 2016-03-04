@@ -43,11 +43,6 @@ function tokenReducer(state = "", action) {
         socket.onclose = () => {
           console.log("close");
         }
-
-        console.log("Send to api/message")
-        var oReq = new XMLHttpRequest();
-        oReq.open("GET", "api/message");
-        oReq.send();
       }
 
       return action.token;

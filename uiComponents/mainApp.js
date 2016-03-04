@@ -5,10 +5,12 @@ import { OneLineInputForm, VisibleMessageList} from './components'
 import { addMessage, switchUsername, setChannelToken } from '../actions/actions'
 import { LiveOneLineInputForm } from './presentation/liveOneLineInputForm'
 
+import Message from '../domainModel/message'
+
 class MainApp extends React.Component {
 
   componentDidMount() {
-    var oReq = new XMLHttpRequest();
+    let oReq = new XMLHttpRequest();
     oReq.addEventListener("load", (event) => {
       if (this.props.handleChannelTokenUpdate != null) {
         const response = JSON.parse(event.target.responseText);
@@ -47,6 +49,7 @@ const ConnectedMainApp = connect(
   (dispatch, props) => {
     return {
       handleSubmit: (username, message) => {
+        Message.sendMessage(message, username);
         dispatch(addMessage(message, username));
       },
       handleUsernameChange: (value) => {

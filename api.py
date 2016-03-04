@@ -7,19 +7,15 @@ open_channels = set()
 
 class ChannelDidConnect(webapp2.RequestHandler):
 
-    def get(self):
-        user = users.get_current_user()
-        if user:
-            print "opening with: %s" % user.user_id()
-            open_channels.add(user.user_id())
+    def post(self):
+        open_channels.add(self.request.get("from"))
 
 class ChannelDisconnect(webapp2.RequestHandler):
 
-    def get(self):
-        user = users.get_current_user()
-        if user:
-            print "closing with: %s" % user.user_id()
-            open_channels.remove(user.user_id())
+    def post(self):
+        channelId = self.request.get("from")
+        if channelId in open_channels:
+            open_channels.remove()
 
 
 class ChannelRequest(webapp2.RequestHandler):
@@ -37,11 +33,14 @@ class ChannelRequest(webapp2.RequestHandler):
 
 class Message(webapp2.RequestHandler):
 
-    def get(self):
+    def post(self):
+        # Only accept messages from logged in users
         user = users.get_current_user()
         if not user:
             return
-        channel.send_message(user.user_id(), "ACK")
+        print "Current channels: %s" % open_channels
+        for channelId in open_channels:
+            channel.send_message(channelId, self.request.body)
 
 
 app = webapp2.WSGIApplication([
