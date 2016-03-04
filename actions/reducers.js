@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { ADD_MESSAGE, SWITCH_USERNAME, SET_CHANNEL_TOKEN } from './actionTypes'
+import BackendConnection from '../networking/backendConnection'
 
 function usernameReducer(state = "anonymous", action) {
   switch(action.type) {
@@ -29,20 +30,7 @@ function tokenReducer(state = "", action) {
   switch (action.type) {
     case SET_CHANNEL_TOKEN:
       if (action.token != "") {
-        const channel = new goog.appengine.Channel(action.token);
-        const socket = channel.open();
-        socket.onmessage = (message) => {
-          console.log(message);
-        }
-        socket.onopen = () => {
-          console.log("opened");
-        }
-        socket.onerror = () => {
-          console.log("socket error");
-        }
-        socket.onclose = () => {
-          console.log("close");
-        }
+        const connection = new BackendConnection(action.token);
       }
 
       return action.token;
