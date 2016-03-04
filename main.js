@@ -1,15 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
+
 import { Provider } from 'react-redux'
 
-import Reducers from './actions/reducers'
+import Store from './store'
 import MainApp from './uiComponents/mainApp'
 
-let store = createStore(Reducers);
-
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={Store}>
     <MainApp />
   </Provider>,
   document.getElementById('wrapper')
