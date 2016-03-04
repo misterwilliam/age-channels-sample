@@ -3,7 +3,27 @@ import webapp2
 from google.appengine.api import channel
 from google.appengine.api import users
 
-class Channel(webapp2.RequestHandler):
+open_channels = set()
+
+class ChannelDidConnect(webapp2.RequestHandler):
+
+    def get(self):
+        user = users.get_current_user()
+        if user:
+            print "opening with: %s" % user.user_id()
+            open_channels.add(user.user_id())
+
+class ChannelDisconnect(webapp2.RequestHandler):
+
+    def get(self):
+        user = users.get_current_user()
+        if user:
+            print "closing with: %s" % user.user_id()
+            open_channels.remove(user.user_id())
+
+
+class ChannelRequest(webapp2.RequestHandler):
+
     def get(self):
         user = users.get_current_user()
         if not user:
@@ -14,7 +34,9 @@ class Channel(webapp2.RequestHandler):
             "{\"token\": \"%s\"}" % token
         )
 
+
 class Message(webapp2.RequestHandler):
+
     def get(self):
         user = users.get_current_user()
         if not user:
@@ -23,6 +45,8 @@ class Message(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/api/channel', Channel),
-    ('/api/message', Message)
+    ('/api/channel', ChannelRequest),
+    ('/api/message', Message),
+    ('/_ah/channel/connected/', ChannelDidConnect),
+    ('/_ah/channel/disconnected/', ChannelDisconnect),
 ])
