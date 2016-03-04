@@ -51,7 +51,6 @@ const ConnectedMainApp = connect(
     return {
       handleSubmit: (username, message) => {
         Message.sendMessage(message, username);
-        dispatch(addMessage(message, username));
       },
       handleUsernameChange: (value) => {
         dispatch(switchUsername(value));
