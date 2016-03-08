@@ -32,19 +32,20 @@ class ChannelRequest(webapp2.RequestHandler):
             "{\"token\": \"%s\"}" % token
         )
 
-
 class Message(webapp2.RequestHandler):
 
     def post(self):
-        # Only accept messages from logged in users
-        user = users.get_current_user()
-        if not user:
-            return
+        self.handleRequest()
+
+    def get(self):
+        self.handleRequest()
+
+    def handleRequest(self):
         print open_channels
         for channelId in open_channels:
             channel.send_message(channelId,
-            "message=%s&author=%s" % (self.request.POST["message"],
-                                      self.request.POST["author"]))
+            "message=%s&author=%s" % (self.request.params["message"],
+                                      self.request.params["author"]))
 
 
 app = webapp2.WSGIApplication([
