@@ -6,7 +6,7 @@ inbound_services:
 
 handlers:
 - url: /
-  script: main.app
+  script: backend.main.app
 - url: /chat
   static_files: index.html
   upload: index.html
@@ -14,10 +14,10 @@ handlers:
   static_dir: dist/
 # TODO: Secure this connection
 - url: /api/.*
-  script: api.app
+  script: backend.api.app
 - url: /_ah/channel/connected/
-  script: api.app
+  script: backend.api.app
 - url: /_ah/channel/disconnected/
-  script: api.app
+  script: backend.api.app
 - url: /.*
-  script: main.app
+  script: backend.main.app
