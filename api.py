@@ -3,21 +3,41 @@ import webapp2
 from google.appengine.api import channel
 from google.appengine.api import users
 
+import models.models as models
+
 open_channels = set()
+previousChannels = models.Channel.query().fetch()
+print "Retrieved: %s" % previousChannels
+for _channel in previousChannels:
+    open_channels.add(_channel.channelId)
 
 class ChannelDidConnect(webapp2.RequestHandler):
 
     def post(self):
-        print "Got connection"
-        open_channels.add(self.request.get("from"))
+        channelId = self.request.get("from")
+        print "Got connection: %s" % channelId
+        if channelId not in open_channels:
+            # Add to local set of channels
+            open_channels.add(channelId)
+
+            # Save to datastore
+            channel = models.Channel()
+            channel.channelId = channelId
+            channel.put()
 
 class ChannelDisconnect(webapp2.RequestHandler):
 
     def post(self):
-        print "Got disconnection"
         channelId = self.request.get("from")
+        print "Got disconnection: %s" % channelId
+
         if channelId in open_channels:
             open_channels.remove(channelId)
+            # Delete from datastore
+            channels = models.Channel.query(
+                        models.Channel.channelId==channelId
+                      ).fetch(1)
+            channels[0].key.delete()
 
 
 class ChannelRequest(webapp2.RequestHandler):
