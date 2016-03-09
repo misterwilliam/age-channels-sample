@@ -63,9 +63,11 @@ class Message(webapp2.RequestHandler):
     def handleRequest(self):
         print open_channels
         for channelId in open_channels:
-            channel.send_message(channelId,
-            "message=%s&author=%s" % (self.request.params["message"],
-                                      self.request.params["author"]))
+            channel.send_message(
+                channelId,
+                "message=%s&author=%s" % (
+                    self.request.params["message"],
+                    self.request.params["author"]))
 
 
 app = webapp2.WSGIApplication([
