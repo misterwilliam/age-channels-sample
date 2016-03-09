@@ -11,7 +11,7 @@ handlers:
   static_files: index.html
   upload: index.html
 - url: /dist
-  static_dir: dist/
+  static_dir: frontend/dist/
 # TODO: Secure this connection
 - url: /api/.*
   script: backend.api.app
