@@ -2,6 +2,7 @@ import webapp2
 
 from google.appengine.api import channel
 from google.appengine.api import users
+from google.appengine.api import xmpp
 
 import models.models as models
 
@@ -52,6 +53,7 @@ class ChannelRequest(webapp2.RequestHandler):
             "{\"token\": \"%s\"}" % token
         )
 
+
 class Message(webapp2.RequestHandler):
 
     def post(self):
@@ -62,12 +64,28 @@ class Message(webapp2.RequestHandler):
 
     def handleRequest(self):
         print open_channels
+        message = self.request.params["message"]
+        author = self.request.params["author"]
         for channelId in open_channels:
             channel.send_message(
                 channelId,
                 "message=%s&author=%s" % (
-                    self.request.params["message"],
-                    self.request.params["author"]))
+                    message, author))
+        # Send through XMPP
+        xmpp.send_message("gae-channels-1@appspot.com", message)
+
+
+class XMPPHandler(webapp2.RequestHandler):
+    def post(self):
+        message = xmpp.Message(self.request.POST)
+        for channelId in open_channels:
+            channel.send_message(
+                channelId,
+                "message=%s&author=xmpp-%s" % (
+                    message.body,
+                    message.sender,
+                )
+            )
 
 
 app = webapp2.WSGIApplication([
@@ -75,4 +93,5 @@ app = webapp2.WSGIApplication([
     ('/api/message', Message),
     ('/_ah/channel/connected/', ChannelDidConnect),
     ('/_ah/channel/disconnected/', ChannelDisconnect),
+    ('/_ah/xmpp/message/chat/', XMPPHandler)
 ])

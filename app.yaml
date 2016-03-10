@@ -3,6 +3,7 @@ api_version: 1
 threadsafe: true
 inbound_services:
 - channel_presence
+- xmpp_message
 
 handlers:
 - url: /
@@ -15,9 +16,7 @@ handlers:
 # TODO: Secure this connection
 - url: /api/.*
   script: backend.api.app
-- url: /_ah/channel/connected/
-  script: backend.api.app
-- url: /_ah/channel/disconnected/
+- url: /_ah/.*
   script: backend.api.app
 - url: /.*
   script: backend.main.app
