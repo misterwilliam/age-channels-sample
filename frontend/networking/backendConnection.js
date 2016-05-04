@@ -14,7 +14,7 @@ export default class BackendConnection {
 
   constructor(channelToken) {
     const channel = new goog.appengine.Channel(channelToken);
-    const socket = channel.open({
+    this.socket = channel.open({
         onmessage: (message) => {
           let params = getJsonFromUrl(message.data);
           Store.dispatch(addMessage(params.message, params.author));
@@ -31,4 +31,7 @@ export default class BackendConnection {
     });
   }
 
+  close() {
+    this.socket.close();
+  }
 }
