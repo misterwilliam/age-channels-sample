@@ -46,12 +46,14 @@ class ChannelRequest(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if not user:
+            print "Invalid user requesting channel"
             self.response.write({"token": ""})
             return
         token = channel.create_channel(user.user_id())
         self.response.write(
             "{\"token\": \"%s\"}" % token
         )
+        print "Passing token: %s" % token
 
 
 class Message(webapp2.RequestHandler):

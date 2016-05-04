@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
-import { ADD_MESSAGE, SWITCH_USERNAME, SET_CHANNEL_TOKEN } from './actionTypes'
-import BackendConnection from '../networking/backendConnection'
+import { ADD_MESSAGE, SWITCH_USERNAME } from './actionTypes'
 
 function usernameReducer(state = "anonymous", action) {
   switch(action.type) {
@@ -26,21 +25,7 @@ function messagesReducer(state = [], action) {
   }
 }
 
-function tokenReducer(state = "", action) {
-  switch (action.type) {
-    case SET_CHANNEL_TOKEN:
-      if (action.token != "") {
-        const connection = new BackendConnection(action.token);
-      }
-
-      return action.token;
-    default:
-      return state;
-  }
-}
-
 export default combineReducers({
   messages: messagesReducer,
-  username: usernameReducer,
-  token: tokenReducer,
+  username: usernameReducer
 })

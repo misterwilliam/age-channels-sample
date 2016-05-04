@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, SWITCH_USERNAME, SET_CHANNEL_TOKEN } from './actionTypes'
+import { ADD_MESSAGE, SWITCH_USERNAME } from './actionTypes'
 
 export function addMessage(message, author) {
   return {
@@ -12,12 +12,5 @@ export function switchUsername(username) {
   return {
     type: SWITCH_USERNAME,
     username: username,
-  }
-}
-
-export function setChannelToken(token) {
-  return {
-    type: SET_CHANNEL_TOKEN,
-    token: token
   }
 }
